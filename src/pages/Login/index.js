@@ -3,21 +3,26 @@ import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import React from 'react';
 import { colors } from '../../utils';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { welcomeAuth } from '../../assets';
 import { Button, Input } from '../../components';
+import { LoginIllustration } from '../../assets';
 
-const Register = () => {
+const Register = ({navigation}) => {
+  const handleGoTo = (screen) => {
+        navigation.navigate(screen);
+  };
   return (
     <ScrollView>
         <View style={styles.wrapper.page}>
         <Icon name='angle-left' size={30} style={styles.icon.back} />
         <View style={styles.wrapper.illustrationanddesc}>
-          <Image style={styles.wrapper.illustration} source={welcomeAuth}/>
-          <Text style={styles.text.register}>Mohon Mengisi Data Anda</Text>
+          <Image style={styles.wrapper.illustration} source={LoginIllustration}/>
+          <Text style={styles.text.register}>Log In</Text>
         </View>
         <Input placeholder="email" />
+        <View style={styles.space(33)} />
         <Input placeholder="password" />
-        <Button title="masuk"/>
+        <View style={styles.space(33)} />
+        <Button title="Log In" onPress={() => handleGoTo('Home')}/>
         </View>
     </ScrollView>
   );
@@ -29,7 +34,7 @@ const styles = StyleSheet.create({
   text:{
     register:{
       color: colors.default,
-      fontSize: 14,
+      fontSize: 20,
       fontWeight: 'bold',
       marginTop: 16,
       maxWidth: 200,
@@ -41,6 +46,9 @@ const styles = StyleSheet.create({
     back:{
       color: colors.default,
       marginLeft: 10,
+      // width: 50,
+      // height: 50,
+      backgroundColor: 'transparent',
     },
     iconButton: {
       backgroundColor: 'transparent',
@@ -61,8 +69,13 @@ const styles = StyleSheet.create({
         illustration:{
           marginTop: 8,
           width: 250,
-          height: 145,
+          height: 230,
           marginBottom: 10,
         },
+    },
+    space: (value) => {
+      return {
+        height:value,
+      };
     },
 });

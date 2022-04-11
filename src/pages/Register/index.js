@@ -4,16 +4,19 @@ import React from 'react';
 import { colors } from '../../utils';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, Input } from '../../components';
-import { welcomeAuth } from '../../assets';
+import { RegisterIllustration } from '../../assets';
 
-const Register = () => {
+const Register = ({navigation}) => {
+  const handleGoTo = (screen) => {
+        navigation.navigate(screen);
+  };
   return (
     <ScrollView>
         <View style={styles.wrapper.page}>
         <Icon name='angle-left' size={30} style={styles.icon.back} />
         <View style={styles.wrapper.illustrationanddesc}>
-          <Image style={styles.wrapper.illustration} source={welcomeAuth}/>
-          <Text style={styles.text.register}>Mohon Mengisi Data Anda</Text>
+          <Image style={styles.wrapper.illustration} source={RegisterIllustration}/>
+          <Text style={styles.text.register}>Sign up</Text>
         </View>
         <Input placeholder="nama lengkap" />
         <View style={styles.space(33)} />
@@ -21,7 +24,7 @@ const Register = () => {
         <View style={styles.space(33)} />
         <Input placeholder="password" />
         <View style={styles.space(33)} />
-        <Button title="mendaftar"/>
+        <Button title="Create Account" onPress={() => handleGoTo('Home')}/>
         </View>
     </ScrollView>
   );
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
   text:{
     register:{
       color: colors.default,
-      fontSize: 14,
+      fontSize: 20,
       fontWeight: 'bold',
       marginTop: 16,
       maxWidth: 200,
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
         illustration:{
           marginTop: 8,
           width: 250,
-          height: 145,
+          height: 230,
           marginBottom: 10,
         },
     },
