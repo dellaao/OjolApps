@@ -7,11 +7,11 @@ import {
 import React from 'react';
 import { Button } from '../../components';
 
-const ActionButton = ({desc, title}) => {
+const ActionButton = ({desc, title, onPress}) => {
   return (
     <View style={styles.containerActionButton}>
       <Text style={styles.text.Desc}>{desc}</Text>
-      <Button title={title}/>
+      <Button title={title} onPress={onPress}/>
     </View>
   );
 };
