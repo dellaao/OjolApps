@@ -1,55 +1,78 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import React from 'react';
-import { colors } from '../../utils';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Button, Input } from '../../components';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginIllustration } from '../../assets';
+import { Button, Input } from '../../components';
+import { setForm } from '../../redux';
+import { colors } from '../../utils';
 
-const Register = ({navigation}) => {
-  const handleGoTo = (screen) => {
-        navigation.navigate(screen);
+const Login = ({navigation}) => {
+  const LoginReducer = useSelector(state => state.LoginReducer);
+  //kalo yang dipake cuma form bisa buat { form } aja, jadi gak perlu RegisterReducer
+  const dispatch = useDispatch();
+  //untuk merubah value dari reducer
+
+  const sendData = () => {
+    console.log('data yang dikirim: ', LoginReducer.form);
+
   };
+
+  const onInputChange = (value, inputType) => {
+    dispatch(setForm(inputType, value));
+  };
+  //input berubah, terima value dari form kemudian set form, copy full name terus ubah nama dengan nama baru.
+  //bawa nilai lama => ...form
+  //dispatch mengirimkan objek
+
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapper.page}>
-        <Icon name='angle-left' size={30} style={styles.icon.back} />
+        <Button type="icon" name="back" onPress={() => navigation.goBack()}/>
         <View style={styles.wrapper.illustrationanddesc}>
           <Image style={styles.wrapper.illustration} source={LoginIllustration}/>
-          <Text style={styles.text.register}>Log In</Text>
+          <Text style={styles.text.title}>{LoginReducer.title}</Text>
         </View>
-        <Input placeholder="email" />
+        <Input placeholder="email" 
+            value={LoginReducer.form.email}
+            onChangeText={(value) => onInputChange(value, 'email')}
+          />
         <View style={styles.space(33)} />
-        <Input placeholder="password" />
-        <View style={styles.space(33)} />
-        <Button title="Log In" onPress={() => handleGoTo('Home')}/>
+        <Input placeholder="password"
+            value={LoginReducer.form.password}
+            onChangeText={(value) => onInputChange(value, 'password')}
+            secureTextEntry={true}
+          />
+        <View style={styles.space(83)} />
+        <Button title="Log In" onPress={sendData}/>
         </View>
     </ScrollView>
   );
 };
 
-export default Register;
+export default Login;
 
 const styles = StyleSheet.create({
   text:{
-    register:{
+    title:{
       color: colors.default,
       fontSize: 20,
       fontWeight: 'bold',
       marginTop: 16,
       maxWidth: 200,
-      marginBottom: 40,
+      // marginBottom: 40,
       textAlign: 'center',
     },
+    desc:{
+      color: colors.default,
+      fontSize: 16,
+      marginTop: 5,
+      // maxWidth: 200,
+      marginBottom: 40,
+      textAlign: 'center',
+    }
   },
   icon:{
-    back:{
-      color: colors.default,
-      marginLeft: 10,
-      // width: 50,
-      // height: 50,
-      backgroundColor: 'transparent',
-    },
     iconButton: {
       backgroundColor: 'transparent',
       marginHorizontal:10,

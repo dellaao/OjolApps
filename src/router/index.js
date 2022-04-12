@@ -8,7 +8,8 @@ const Stack = createNativeStackNavigator();
 
 const Router = () => {
     return (
-        <Stack.Navigator initialRouteName='Register'>
+        <Stack.Navigator initialRouteName='Splash'>
+        {/*  initialRouteName='Register' => masukin di dalam stack.navigator */}
             <Stack.Screen name="Splash" component={Splash} options={{
                 headerShown: false,
             }} />
